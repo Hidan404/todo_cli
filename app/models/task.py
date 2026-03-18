@@ -41,6 +41,21 @@ class Task:
         conn.commit()
         conn.close()
 
+    def verificar_se_tabela_existe(self):
+        conn = sqlite3.connect(self.caminho_banco())
+        cursor = conn.cursor()
+        resposta = cursor.execute("SELECT name FROM sqlite_master")
+        tabela_nome = resposta.fetchone()
+        try:
+            if tabela_nome == "tarefas":
+                return True
+            else:
+                return False
+        except TypeError:
+            self.criar_tabela()
+        conn.close()    
+
+
 
     @staticmethod
     def listar(self):
@@ -52,6 +67,12 @@ class Task:
         ''')
         resposta.fetchall()
         conn.close()
+
+
+
+task = Task("Estudos Python", "Estudar Python em forma de projetos na pratica")
+task.criar_tabela()        
+task.salvar()
 
 
 
