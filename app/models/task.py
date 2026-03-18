@@ -55,7 +55,14 @@ class Task:
             self.criar_tabela()
         conn.close()    
 
+    def deletar(self, id):
+        conn = sqlite3.connect(self.caminho_banco())
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM tarefas WHERE id = ?", id)
+        conn.close()
 
+    def atualizar(self, id):
+        pass
 
     @staticmethod
     def listar(self):
