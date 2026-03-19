@@ -1,4 +1,4 @@
-from models.task import Task
+from app.models.task import Task
 
 class TaskServices():
     def criar_tarefa(self, titulo, descricao):
@@ -7,13 +7,13 @@ class TaskServices():
         return nova_tarefa
 
     def listar_tarefas(self):
-        return task.listar()
+        return Task.listar()
     
     def verificar_se_tabela_existe(self):
-        return task.verificar_se_tabela_existe()
+        return Task.verificar_se_tabela_existe()
     
     def deletar_tarefas(self, id):
-        return task.deletar(id)
+        return Task.deletar(id)
     
     def atualizar(self, id, titulo, descricao):
         task = Task(titulo, descricao, id=id)
@@ -21,5 +21,7 @@ class TaskServices():
 
 
 # forma correta de usar
-task = TaskServices()
-task.criar_tarefa("Java", "estudar java")
+#task = TaskServices()
+#task.criar_tarefa("Java", "estudar java")
+#task.criar_tarefa("Ler", "Leitura Diaria")
+#task.criar_tarefa("Organizar coleção", "Limpar coleção de mangas e livros")

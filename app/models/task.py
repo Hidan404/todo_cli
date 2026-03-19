@@ -30,15 +30,15 @@ class Task:
         conn.commit()
         conn.close()
 
-    @staticmethod
-    def salvar():
+    
+    def salvar(self):
         Task.criar_tabela()
         conn = sqlite3.connect(Task.caminho_banco())
         cursor = conn.cursor()
         cursor.execute('''
             INSERT INTO tarefas (titulo, descricao, data_criacao)
             VALUES (?, ?, ?)
-        ''', (Task.titulo, Task.descricao, Task.data_criacao))
+        ''', (self.titulo, self.descricao, self.data_criacao))
         conn.commit()
         conn.close()
 
@@ -68,8 +68,8 @@ class Task:
         conn.commit()
         conn.close()
 
-    @staticmethod
-    def atualizar():
+    
+    def atualizar(self):
         if Task.id is None:
             print("Tarefa precisa de um ID para atualizar")
             return
@@ -80,7 +80,7 @@ class Task:
             UPDATE tarefas 
             SET titulo = ?, descricao = ?
             WHERE id = ?
-        ''', (Task.titulo, Task.descricao, Task.id))
+        ''', (self.titulo, self.descricao, self.id))
 
         conn.commit()
         conn.close()
