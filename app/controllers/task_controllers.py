@@ -1,34 +1,25 @@
-from  app.services.task_services import TaskServices
-import typer
-
-
 from app.services.task_services import TaskServices
-import typer
-
-app = typer.Typer()
-services = TaskServices()
 
 
-@app.command()
-def add(titulo: str, descricao: str):
-    services.criar_tarefa(titulo, descricao)
-    typer.secho(f"Tarefa {titulo} adicionada com sucesso",fg="green")
+class TaskController:
 
-@app.command()
-def ls():
-    tarefas = services.listar_tarefas()
+    def __init__(self):
+        self.services = TaskServices()
 
-    if not tarefas:
-        print("Nenhuma tarefa encontrada")
+    def add(self, titulo, descricao):
+        self.services.criar_tarefa(titulo, descricao)
+        return f"Tarefa {titulo} adicionada com sucesso"
 
-    for t in tarefas:
-        typer.secho(f"ID: {t[0]}, TITULO: {t[1]}, DESCRICAO: {t[2]}",fg=typer.colors.CYAN)
+    def ls(self):
+        tarefas = self.services.listar_tarefas()
+        return tarefas
 
+    def update(self, id, titulo, descricao):
+        self.services.atualizar(id, titulo, descricao)
+        return f"Tarefa {id} atualizada com sucesso"
 
-if __name__ == "__main__":
-    app() 
-
-
-
+    def deletar(self, id):
+        self.services.deletar_tarefas(id)
+        return f"Tarefa {id} deletada com sucesso"
 
 

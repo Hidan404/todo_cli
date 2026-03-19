@@ -61,7 +61,7 @@ class Task:
             return False
 
     @staticmethod
-    def deletar(Task, id):
+    def deletar(id):
         conn = sqlite3.connect(Task.caminho_banco())
         cursor = conn.cursor()
         cursor.execute("DELETE FROM tarefas WHERE id = ?", (id,))
@@ -70,7 +70,7 @@ class Task:
 
     
     def atualizar(self):
-        if Task.id is None:
+        if self.id is None:
             print("Tarefa precisa de um ID para atualizar")
             return
 
