@@ -24,10 +24,8 @@ class Task:
                 data_criacao TEXT NOT NULL
             )
         ''')
-
         conn.commit()
-        conn.close()    
-
+        conn.close()
 
     def salvar(self):
         self.criar_tabela()
@@ -37,49 +35,56 @@ class Task:
             INSERT INTO tarefas (titulo, descricao, data_criacao)
             VALUES (?, ?, ?)
         ''', (self.titulo, self.descricao, self.data_criacao))
-
         conn.commit()
         conn.close()
 
     def verificar_se_tabela_existe(self):
         conn = sqlite3.connect(self.caminho_banco())
         cursor = conn.cursor()
-        resposta = cursor.execute("SELECT name FROM sqlite_master")
-        tabela_nome = resposta.fetchone()
-        try:
-            if tabela_nome == "tarefas":
-                return True
-            else:
-                return False
-        except TypeError:
+        cursor.execute("""
+            SELECT name FROM sqlite_master 
+            WHERE type='table' AND name='tarefas'
+        """)
+        tabela_nome = cursor.fetchone()
+
+        if tabela_nome:
+            conn.close()
+            return True
+        else:
             self.criar_tabela()
-        conn.close()    
+            conn.close()
+            return False
 
     def deletar(self, id):
         conn = sqlite3.connect(self.caminho_banco())
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM tarefas WHERE id = ?", id)
+        cursor.execute("DELETE FROM tarefas WHERE id = ?", (id,))
+        conn.commit()
         conn.close()
 
-    def atualizar(self, id):
-        pass
+    def atualizar(self):
+        if self.id is None:
+            print("Tarefa precisa de um ID para atualizar")
+            return
 
-    @staticmethod
+        conn = sqlite3.connect(self.caminho_banco())
+        cursor = conn.cursor()
+        cursor.execute('''
+            UPDATE tarefas 
+            SET titulo = ?, descricao = ?
+            WHERE id = ?
+        ''', (self.titulo, self.descricao, self.id))
+
+        conn.commit()
+        conn.close()
+
     def listar(self):
         conn = sqlite3.connect(self.caminho_banco())
         cursor = conn.cursor()
-        resposta = cursor.execute('''
-            SELECT titulo, descricao, data_criacao
-            from tarefas           
+        cursor.execute('''
+            SELECT id, titulo, descricao, data_criacao
+            FROM tarefas
         ''')
-        resposta.fetchall()
+        dados = cursor.fetchall()
         conn.close()
-
-
-
-task = Task("Estudos Python", "Estudar Python em forma de projetos na pratica")
-task.criar_tabela()        
-task.salvar()
-
-
-
+        return dados
