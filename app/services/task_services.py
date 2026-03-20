@@ -1,8 +1,8 @@
 from app.models.task import Task
 
 class TaskServices():
-    def criar_tarefa(self, titulo, descricao):
-        nova_tarefa = Task(titulo, descricao)
+    def criar_tarefa(self, titulo, descricao, prioridade=None, prazo=None):
+        nova_tarefa = Task(titulo, descricao, prioridade=prioridade, prazo=prazo)
         nova_tarefa.salvar()
         return nova_tarefa
 

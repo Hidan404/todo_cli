@@ -6,8 +6,8 @@ controller = TaskController()
 
 
 @app.command()
-def add(titulo: str, descricao: str):
-    msg = controller.add(titulo, descricao)
+def add(titulo: str, descricao: str, prioridade: str = None, prazo: str = None):
+    msg = controller.add(titulo, descricao, prioridade=prioridade, prazo=prazo)
     typer.secho(msg, fg=typer.colors.GREEN)
 
 
