@@ -1,0 +1,7 @@
+.venv
+app/database/tarefas.db
+app/database/tarefas.db-journal
+__pycache__/
+*.pyc
+build/
+todo_cli.egg-info/
