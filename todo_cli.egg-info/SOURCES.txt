@@ -1,7 +1,13 @@
 pyproject.toml
+app/__init__.py
+app/controllers/__init__.py
 app/controllers/task_controllers.py
+app/database/__init__.py
+app/models/__init__.py
 app/models/task.py
+app/services/__init__.py
 app/services/task_services.py
+app/views/__init__.py
 app/views/cli.py
 todo_cli.egg-info/PKG-INFO
 todo_cli.egg-info/SOURCES.txt

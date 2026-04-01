@@ -1,7 +1,10 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "todo-cli"
 version = "0.1.0"
-description = "CLI de gerenciamento de tarefas"
 dependencies = ["typer"]
 
 [tool.setuptools.packages.find]
