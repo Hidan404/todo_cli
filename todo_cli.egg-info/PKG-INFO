@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: todo-cli
+Version: 0.1.0
+Summary: CLI de gerenciamento de tarefas
+Author: Ronald Sousa
+Requires-Dist: typer
